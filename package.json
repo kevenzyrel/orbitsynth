@@ -1,0 +1,19 @@
+{
+  "name": "orbitsynth",
+  "version": "1.0.0",
+  "description": "Interactive Euclidean polyrhythm and harmonic orbital synthesizer powered by Web Audio API and HTML5 Canvas.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "dev": "python -m http.server 4173"
+  },
+  "keywords": [
+    "webaudio",
+    "synthesizer",
+    "euclidean-rhythm",
+    "polyrhythm",
+    "generative-music",
+    "canvas"
+  ],
+  "license": "MIT"
+}

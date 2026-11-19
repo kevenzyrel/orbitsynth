@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OrbitSynth — Euclidean Polyrhythm &amp; Harmonic Studio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div>
+          <h1>OrbitSynth</h1>
+          <p class="subtitle">Euclidean Polyrhythm &amp; Harmonic Studio</p>
+        </div>
+      </div>
+
+      <div class="transport">
+        <button id="playBtn" class="btn btn-primary" type="button">▶ Play Orbit</button>
+        <select id="presetSelect" class="select-control" aria-label="Preset"></select>
+        <button id="randomizeBtn" class="btn btn-ghost" type="button" title="Randomize Harmony (R)">✦ Mutate</button>
+        <button id="shareBtn" class="btn btn-ghost" type="button" title="Copy Shareable Patch Link">Share Patch</button>
+      </div>
+    </header>
+
+    <main class="studio-grid">
+      <aside class="panel panel-left">
+        <section class="panel-section">
+          <h2>Global Clock &amp; Harmony</h2>
+          <div class="control-row">
+            <label for="bpmInput">Tempo <span id="bpmValue" class="readout">112 BPM</span></label>
+            <input id="bpmInput" type="range" min="40" max="200" step="1" value="112" />
+          </div>
+          <div class="control-row">
+            <label for="swingInput">Swing <span id="swingValue" class="readout">8%</span></label>
+            <input id="swingInput" type="range" min="0" max="40" step="1" value="8" />
+          </div>
+          <div class="control-row">
+            <label for="delayInput">Space Delay <span id="delayValue" class="readout">34%</span></label>
+            <input id="delayInput" type="range" min="0" max="75" step="1" value="34" />
+          </div>
+          <div class="two-col">
+            <div class="control-row">
+              <label for="rootSelect">Root Key</label>
+              <select id="rootSelect" class="select-control"></select>
+            </div>
+            <div class="control-row">
+              <label for="scaleSelect">Scale</label>
+              <select id="scaleSelect" class="select-control"></select>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel-section rings-section">
+          <div class="section-header">
+            <h2>Orbital Rings</h2>
+            <button id="addRingBtn" class="btn btn-small" type="button">+ Add Orbit</button>
+          </div>
+          <div id="ringList" class="ring-list"></div>
+        </section>
+      </aside>
+
+      <section class="stage">
+        <canvas id="orbitCanvas" aria-label="Interactive Euclidean orbital visualizer"></canvas>
+        <div class="stage-hint">
+          Click any orbital node to toggle steps · <kbd>Space</kbd> Play/Pause · <kbd>1–6</kbd> Mute · <kbd>R</kbd> Mutate
+        </div>
+      </section>
+
+      <aside class="panel panel-right">
+        <section class="panel-section">
+          <div class="section-header">
+            <h2 id="inspectorTitle">Orbit Inspector</h2>
+            <span id="inspectorBadge" class="badge">E(4, 16)</span>
+          </div>
+
+          <div class="two-col">
+            <div class="control-row">
+              <label for="ringNameInput">Label</label>
+              <input id="ringNameInput" class="text-control" type="text" maxlength="24" />
+            </div>
+            <div class="control-row">
+              <label for="ringVoiceSelect">Voice</label>
+              <select id="ringVoiceSelect" class="select-control"></select>
+            </div>
+          </div>
+
+          <div class="control-row">
+            <label for="ringStepsInput">Steps <span id="ringStepsValue" class="readout">16</span></label>
+            <input id="ringStepsInput" type="range" min="2" max="32" step="1" value="16" />
+          </div>
+
+          <div class="control-row">
+            <label for="ringPulsesInput">Pulses <span id="ringPulsesValue" class="readout">4</span></label>
+            <input id="ringPulsesInput" type="range" min="0" max="16" step="1" value="4" />
+          </div>
+
+          <div class="control-row">
+            <label for="ringRotationInput">Rotation <span id="ringRotationValue" class="readout">0</span></label>
+            <input id="ringRotationInput" type="range" min="-16" max="16" step="1" value="0" />
+          </div>
+
+          <div class="control-row">
+            <label for="ringDegreeInput">Scale Degree <span id="ringDegreeValue" class="readout">Deg 1</span></label>
+            <input id="ringDegreeInput" type="range" min="0" max="14" step="1" value="0" />
+          </div>
+
+          <div class="control-row">
+            <label for="ringOctaveInput">Octave <span id="ringOctaveValue" class="readout">Oct 4</span></label>
+            <input id="ringOctaveInput" type="range" min="1" max="6" step="1" value="4" />
+          </div>
+
+          <div class="control-row">
+            <label for="ringProbInput">Hit Probability <span id="ringProbValue" class="readout">100%</span></label>
+            <input id="ringProbInput" type="range" min="10" max="100" step="1" value="100" />
+          </div>
+
+          <div class="control-row">
+            <label for="ringGainInput">Volume <span id="ringGainValue" class="readout">65%</span></label>
+            <input id="ringGainInput" type="range" min="0" max="100" step="1" value="65" />
+          </div>
+
+          <div class="inspector-actions">
+            <button id="resetCustomBtn" class="btn btn-ghost" type="button">Reset Euclidean</button>
+            <button id="deleteRingBtn" class="btn btn-danger" type="button">Remove Orbit</button>
+          </div>
+        </section>
+      </aside>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
